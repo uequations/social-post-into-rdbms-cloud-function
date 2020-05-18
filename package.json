@@ -4,12 +4,15 @@
   "description": "Mensah’s playground for learning how to use Netlify Lambda Functions",
   "private": true,
   "dependencies": {
+    "dotenv": "^8.2.0",
     "mysql": "^2.18.1",
-    "netlify-lambda": "^0.3.0"
+    "netlify-lambda": "^0.3.0",
+    "querystring": "^0.2.0"
   },
   "scripts": {
-    "start:lambda": "netlify-lambda serve src/lambda",
-    "build:lambda": "netlify-lambda build src/lambda"
+    "start:dev": "netlify-lambda serve src/lambda -c webpack.server.js",
+    "start": "netlify-lambda serve src/lambda",
+    "build": "netlify-lambda build src/lambda"
   },
   "author": "malkebu-lan",
   "license": "MIT",

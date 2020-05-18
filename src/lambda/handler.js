@@ -1,5 +1,5 @@
 import querystring from "querystring";
-import db from "../../database/index";
+import dbFunction from "../../database";
 
 exports.handler = async (event, context) => {
     // Only allow POST
@@ -9,11 +9,12 @@ exports.handler = async (event, context) => {
 
     // When the method is POST, the name will no longer be in the event’s
     // queryStringParameters – it’ll be in the event body encoded as a query string
-    const params = querystring.parse(event.body);
-    const name = params.name || "World";
+    const params = querystring.parse(event.body, {parseNumbers: true});
+
+    const results = await dbFunction(params);
 
     return {
         statusCode: 200,
-        body: `Hello, ${name}`
+        body: `query executed`
     };
 };
