@@ -17,7 +17,9 @@ export default async function apply(params) {
     try {
         const pool = db.createPool(dbConfig);
         console.log('connection pool started');
-        return Promise.resolve(await run(pool, sqlParams));
+        console.log('connecting to: ' + dbConfig['host']);
+        console.log('sql params: ' + sqlParams['test_varchar_column']);
+        await run(pool, sqlParams);
     } catch (err) {
         console.error('error: ' + err.message);
     }
