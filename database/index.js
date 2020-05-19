@@ -32,7 +32,6 @@ export default async function apply(params) {
 async function run(pool, values) {
     console.log('sql params: ' + values['test_varchar_column']);
     const tableName = process.env.MYSQL_TABLE_NAME;
-    console.log('updating the table: ' + tableName);
     const sql = 'INSERT INTO ' + tableName + ' SET ?';
 
     try {

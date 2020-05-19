@@ -10,12 +10,17 @@ export async function handler(event, context) {
     // queryStringParameters – it’ll be in the event body encoded as a query string
     const params = querystring.parse(event.body, {parseNumbers: true});
 
-    await dbFunction(params).catch(reason => {
-        console.error("error: ", JSON.stringify(reason))
-    });
+    return await dbFunction(params)
+        .then((response) => {
+            console.log("success");
+            return {
+                statusCode: 200,
+                body: `query executed`
+            };
+        })
+        .catch(reason => {
+            console.error("error: ", JSON.stringify(reason))
+        });
 
-    return {
-        statusCode: 200,
-        body: `query executed`
-    };
+
 }
