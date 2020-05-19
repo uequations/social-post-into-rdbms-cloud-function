@@ -48,16 +48,14 @@ associated_twitter_influencer,
 social_post_shortened,
 social_post,
 blog_text,
-backlinks,
-datetime_accessed) VALUES (${values['post_title']},
+backlinks) VALUES (${values['post_title']},
 ${values['primary_reference_url']},
 ${values['hash_tags']},
 ${values['associated_twitter_influencer']},
 ${values['social_post_shortened']},
 ${values['social_post']},
 ${values['blog_text']},
-${values['backlinks']},
-${values['datetime_accessed']})`;
+${values['backlinks']})`;
 
     try {
         const results = connection.query(sql);
