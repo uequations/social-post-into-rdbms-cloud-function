@@ -54,7 +54,7 @@ async function callback(error, results, fields) {
         console.error("error: ", error);
         throw error
     }
-    console.log('query executed without error');
+    console.log('query executed');
     const affectedRows = JSON.parse(JSON.stringify(results))['affectedRows'];
     console.log('affectedRows: ', affectedRows);
 }
