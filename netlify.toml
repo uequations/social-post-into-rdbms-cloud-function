@@ -1,2 +1,6 @@
 [build]
 command = "npm run build"
+functions = "dist/server"
+
+[dev]
+command = "npm run start:dev"
