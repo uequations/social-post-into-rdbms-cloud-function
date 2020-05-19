@@ -4,7 +4,7 @@ import dbConfig from './dbconfig';
 /**
  *
  * @param {object} [params]
- * @returns {Promise<void>}
+ * @returns {Promise<PermissionStatus>}
  */
 export default async function apply(params) {
 
@@ -17,9 +17,9 @@ export default async function apply(params) {
     try {
         const pool = db.createPool(dbConfig);
         console.log('connection pool started');
-        await run(pool, sqlParams);
+        return Promise.resolve(await run(pool, sqlParams));
     } catch (err) {
-        console.error('init() error: ' + err.message);
+        console.error('error: ' + err.message);
     }
 }
 
@@ -35,17 +35,23 @@ async function run(pool, values) {
     const sql = 'INSERT INTO ' + tableName + ' SET ?';
 
     try {
-        return await pool.query(sql, values, callback);
+        pool.query(sql, values, callback);
     } catch (err) {
-        console.error(err);
+        console.error('error: ' + err);
         throw err;
     }
 }
 
+/**
+ *
+ * @param error
+ * @param results
+ * @param fields
+ * @returns {Promise<unknown>}
+ */
 async function callback(error, results, fields) {
     if (error) throw error;
     console.log('query executed without error');
     const affectedRows = JSON.parse(JSON.stringify(results))['affectedRows'];
     console.log('affectedRows: ', affectedRows);
-    return affectedRows;
 }
