@@ -17,8 +17,6 @@ export default async function apply(params) {
     try {
         const pool = db.createPool(dbConfig);
         console.log('connection pool started');
-        console.log('connecting to: ' + dbConfig['host']);
-        console.log('sql params: ' + sqlParams['test_varchar_column']);
         await run(pool, sqlParams);
     } catch (err) {
         console.error('error: ' + err.message);
@@ -32,8 +30,9 @@ export default async function apply(params) {
  * @returns {Promise<PermissionStatus>}
  */
 async function run(pool, values) {
-
+    console.log('sql params: ' + values['test_varchar_column']);
     const tableName = process.env.MYSQL_TABLE_NAME;
+    console.log('updating the table: ' + tableName);
     const sql = 'INSERT INTO ' + tableName + ' SET ?';
 
     try {
