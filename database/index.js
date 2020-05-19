@@ -51,7 +51,10 @@ async function run(pool, values) {
  * @returns {Promise<unknown>}
  */
 async function callback(error, results, fields) {
-    if (error) throw error;
+    if (error) {
+        console.error("error: ", error);
+        throw error
+    }
     console.log('query executed without error');
     const affectedRows = JSON.parse(JSON.stringify(results))['affectedRows'];
     console.log('affectedRows: ', affectedRows);
