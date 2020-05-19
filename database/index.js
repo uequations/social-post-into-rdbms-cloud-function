@@ -15,9 +15,9 @@ export default async function apply(params) {
     };
 
     try {
-        const pool = db.createPool(dbConfig);
+        const connection = db.createConnection(dbConfig);
         console.log('connection pool started');
-        await run(pool, sqlParams);
+        await run(connection, sqlParams);
     } catch (err) {
         console.error('error: ' + err.message);
     }
@@ -25,28 +25,30 @@ export default async function apply(params) {
 
 /**
  *
- * @param {Pool} [pool]
+ * @param {Connection} [connection]
  * @param {object} [values]
  * @returns {Promise<PermissionStatus>}
  */
-async function run(pool, values) {
+async function run(connection, values) {
     console.log('sql params: ' + values['test_varchar_column']);
     const tableName = process.env.MYSQL_TABLE_NAME;
     const sql = 'INSERT INTO ' + tableName + ' SET ?';
 
     try {
-        pool.query(sql, values, callback);
+        connection.query(sql, values, callback);
     } catch (err) {
         console.error('error: ' + err);
         throw err;
+    } finally {
+        connection.end();
     }
 }
 
 /**
  *
- * @param error
- * @param results
- * @param fields
+ * @param [error]
+ * @param [results]
+ * @param [fields]
  * @returns {Promise<unknown>}
  */
 async function callback(error, results, fields) {
