@@ -19,7 +19,11 @@ export async function handler(event, context) {
             };
         })
         .catch(reason => {
-            console.error("error: ", JSON.stringify(reason))
+            console.error("error: ", JSON.stringify(reason));
+            return {
+                statusCode: 403,
+                body: JSON.stringify(reason)
+            }
         });
 
 
