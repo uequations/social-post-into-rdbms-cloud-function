@@ -33,7 +33,7 @@ export default async function apply(params) {
 async function run(connection, values) {
     console.log('sql params: ' + values['test_varchar_column']);
     const tableName = process.env.MYSQL_TABLE_NAME;
-    const sql = escape`INSERT INTO ${tableName} (test_varchar_column) VALUES (${values['test_varchar_column']})`;
+    const sql = escape`INSERT INTO TestTable (test_varchar_column) VALUES (${values['test_varchar_column']})`;
 
     try {
         const results = connection.query(sql);
