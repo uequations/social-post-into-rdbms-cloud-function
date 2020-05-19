@@ -5,9 +5,10 @@
   "private": true,
   "dependencies": {
     "dotenv": "^8.2.0",
-    "mysql": "^2.18.1",
     "netlify-lambda": "^0.3.0",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "serverless-mysql": "^1.5.4",
+    "sql-template-strings": "^2.2.2"
   },
   "scripts": {
     "start:dev": "netlify-lambda serve src/lambda -c webpack.server.js",

@@ -8,11 +8,16 @@ export async function handler(event, context) {
     }
     // When the method is POST, the name will no longer be in the event’s
     // queryStringParameters – it’ll be in the event body encoded as a query string
-    const params = querystring.parse(event.body, {parseNumbers: true});
+    const params = querystring.parse(event.body);
 
     return await dbFunction(params)
-        .then((response) => {
+        .then((query) => {
             console.log("success");
+
+            if (typeof query !== 'undefined') {
+                console.log('query executed')
+            }
+
             return {
                 statusCode: 200,
                 body: `query executed`
@@ -25,6 +30,4 @@ export async function handler(event, context) {
                 body: JSON.stringify(reason)
             }
         });
-
-
 }

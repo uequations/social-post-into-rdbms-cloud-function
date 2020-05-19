@@ -1,10 +1,12 @@
-import db from 'mysql';
-import dbConfig from './dbconfig';
+import db, {ServerlessMysql} from 'serverless-mysql';
+import {dbConfig} from "./dbconfig";
+
+const escape = require('sql-template-strings');
 
 /**
  *
- * @param {object} [params]
- * @returns {Promise<PermissionStatus>}
+ * @param {ParsedUrlQuery} [params]
+ * @returns {Promise<Query>}
  */
 export default async function apply(params) {
 
@@ -15,9 +17,9 @@ export default async function apply(params) {
     };
 
     try {
-        const connection = db.createConnection(dbConfig);
-        console.log('connection pool started');
-        await run(connection, sqlParams);
+        const connection = db(dbConfig);
+        console.log('connection');
+        return run(connection, sqlParams);
     } catch (err) {
         console.error('error: ' + err.message);
     }
@@ -25,38 +27,20 @@ export default async function apply(params) {
 
 /**
  *
- * @param {Connection} [connection]
+ * @param {ServerlessMysql} [connection]
  * @param {object} [values]
- * @returns {Promise<PermissionStatus>}
  */
 async function run(connection, values) {
     console.log('sql params: ' + values['test_varchar_column']);
     const tableName = process.env.MYSQL_TABLE_NAME;
-    const sql = 'INSERT INTO ' + tableName + ' SET ?';
+    const sql = escape`INSERT INTO ${tableName} (test_varchar_column) VALUES (${values['test_varchar_column']})`;
 
     try {
-        connection.query(sql, values, callback);
+        const results = connection.query(sql);
+        await connection.end();
+        return results;
     } catch (err) {
         console.error('error: ' + err);
-        throw err;
-    } finally {
-        connection.end();
+        return {err};
     }
-}
-
-/**
- *
- * @param [error]
- * @param [results]
- * @param [fields]
- * @returns {Promise<unknown>}
- */
-async function callback(error, results, fields) {
-    if (error) {
-        console.error("error: ", error);
-        throw error
-    }
-    console.log('query executed');
-    const affectedRows = JSON.parse(JSON.stringify(results))['affectedRows'];
-    console.log('affectedRows: ', affectedRows);
 }
