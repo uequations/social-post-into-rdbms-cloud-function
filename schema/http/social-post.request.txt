@@ -1,0 +1,12 @@
+"root":
+"FormID": "3798690"
+"UniqueID": "615219680"
+"post_title": "Microsoft: we were wrong about open source"
+"primary_reference_url": "https://www.theverge.com/2020/5/18/21262103/microsoft-open-source-linux-history-wrong-statement"
+"hash_tags": "#opensource #intellectualproperty #Linux #Microsoft #smith "
+"associated_twitter_influencer": ""
+"social_post_shortened": "So glad they changed their position on this."
+"social_post": "So glad they changed their position on this."
+"blog_text": ""
+"backlinks": "37"
+"datetime_accessed": "May 19, 2020 05:38 PM"

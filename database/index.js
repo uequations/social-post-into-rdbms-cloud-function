@@ -13,7 +13,15 @@ export default async function apply(params) {
     console.log('params: ', JSON.parse(JSON.stringify(params)));
 
     const sqlParams = {
-        test_varchar_column: params['strange']
+        post_title: params['post_title'],
+        primary_reference_url: params['primary_reference_url'],
+        hash_tags: params['hash_tags'],
+        associated_twitter_influencer: params['associated_twitter_influencer'],
+        social_post_shortened: params['social_post_shortened'],
+        social_post: params['social_post'],
+        blog_text: params['blog_text'],
+        backlinks: params['backlinks'],
+        datetime_accessed: params['datetime_accessed']
     };
 
     try {
@@ -31,9 +39,25 @@ export default async function apply(params) {
  * @param {object} [values]
  */
 async function run(connection, values) {
-    console.log('sql params: ' + values['test_varchar_column']);
-    const tableName = process.env.MYSQL_TABLE_NAME;
-    const sql = escape`INSERT INTO TestTable (test_varchar_column) VALUES (${values['test_varchar_column']})`;
+    console.log('sql params: ' + values['primary_reference_url']);
+
+    const sql = escape`INSERT INTO SocialPost (post_title,
+primary_reference_url,
+hash_tags,
+associated_twitter_influencer,
+social_post_shortened,
+social_post,
+blog_text,
+backlinks,
+datetime_accessed) VALUES (${values['post_title']},
+${values['primary_reference_url']},
+${values['hash_tags']},
+${values['associated_twitter_influencer']},
+${values['social_post_shortened']},
+${values['social_post']},
+${values['blog_text']},
+${values['backlinks']},
+${values['datetime_accessed']})`;
 
     try {
         const results = connection.query(sql);
