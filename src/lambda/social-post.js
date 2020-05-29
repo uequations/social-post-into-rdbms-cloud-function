@@ -1,7 +1,7 @@
 import querystring from "querystring";
 import dbFunction from "../../database";
 
-export async function handler(event, context) {
+export async function socialPost(event, context) {
     // Only allow POST
     if (event.httpMethod !== "POST") {
         return {statusCode: 405, body: "Method Not Allowed"};
