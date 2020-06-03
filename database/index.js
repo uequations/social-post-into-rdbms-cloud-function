@@ -39,7 +39,7 @@ export default async function apply(params) {
  * @param {object} [values]
  */
 async function run(connection, values) {
-    console.log('sql params: ' + values['primary_reference_url']);
+    console.log('sql params: ' + JSON.stringify(values));
 
     const sql = escape`INSERT INTO SocialPost (post_title,
 primary_reference_url,
