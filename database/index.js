@@ -11,7 +11,6 @@ const escape = require('sql-template-strings');
 export default async function apply(params) {
 
     console.log('params: ', JSON.stringify(params));
-    console.log('object type: ', typeof params)
 
     const sqlParams = {
         post_title: params['post_title'],
