@@ -27,7 +27,7 @@ export default async function apply(params) {
     try {
         const connection = db(dbConfig);
         console.log('connection');
-        return run(connection, sqlParams);
+        return await run(connection, sqlParams);
     } catch (err) {
         console.error('error: ' + err.message);
     }

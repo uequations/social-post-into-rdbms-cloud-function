@@ -15,7 +15,7 @@ export async function handler(event, context, callback) {
 
             if (typeof query !== 'undefined') {
 
-                console.log('query executed: ', JSON.stringify(query))
+                console.log('query executed | affected rows: ', query.affectedRows)
             }
 
             return callback(null, {
