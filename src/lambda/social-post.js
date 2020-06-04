@@ -1,6 +1,6 @@
 import dbFunction from "../../database";
 
-export async function handler(event, context, callback) {
+export function handler(event, context, callback) {
     // Only allow POST
     if (event.httpMethod !== "POST") {
         return {statusCode: 405, body: "Method Not Allowed"};
@@ -9,7 +9,7 @@ export async function handler(event, context, callback) {
     // queryStringParameters – it’ll be in the event body encoded as a query string
     const params = JSON.parse(event.body);
 
-    return await dbFunction(params)
+    return dbFunction(params)
         .then((query) => {
             console.log("success");
 
