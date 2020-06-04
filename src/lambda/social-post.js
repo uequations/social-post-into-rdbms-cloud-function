@@ -1,6 +1,6 @@
 import dbFunction from "../../database";
 
-export async function handler(event, context) {
+export async function handler(event, context, callback) {
     // Only allow POST
     if (event.httpMethod !== "POST") {
         return {statusCode: 405, body: "Method Not Allowed"};
@@ -17,16 +17,16 @@ export async function handler(event, context) {
                 console.log('query executed')
             }
 
-            return {
+            return callback(null, {
                 statusCode: 200,
                 body: `query executed`
-            };
+            });
         })
         .catch(reason => {
             console.error("error: ", JSON.stringify(reason));
-            return {
+            return callback(null, {
                 statusCode: 403,
                 body: JSON.stringify(reason)
-            }
+            })
         });
 }
