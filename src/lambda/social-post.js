@@ -14,7 +14,8 @@ export async function handler(event, context, callback) {
             console.log("success");
 
             if (typeof query !== 'undefined') {
-                console.log('query executed')
+
+                console.log('query executed: ', JSON.stringify(query))
             }
 
             return callback(null, {
